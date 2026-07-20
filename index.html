@@ -1,0 +1,2036 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HSC-Niji Survey | Medium-Band Imaging with Hyper Suprime-Cam</title>
+  <meta name="description" content="HSC-Niji is a medium-band imaging survey with Hyper Suprime-Cam on the Subaru Telescope, connecting cosmology, extragalactic science, Galactic archaeology, and stellar and planetary science." />
+  <meta name="theme-color" content="#07111f" />
+  <meta property="og:title" content="HSC-Niji Survey" />
+  <meta property="og:description" content="Mapping the Universe through medium-band colors." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /*
+      HSC-Niji Survey — single-file static website template
+      -------------------------------------------------------
+      Edit the color variables below to customize the whole site.
+      This file contains all HTML, CSS, and JavaScript in one place.
+      It can be uploaded as index.html to GitHub Pages.
+    */
+
+    :root {
+      --night: #07111f;
+      --deep: #101b2d;
+      --deep-2: #0b1728;
+      --panel: rgba(16, 27, 45, 0.74);
+      --panel-strong: rgba(9, 18, 32, 0.88);
+      --line: rgba(182, 194, 209, 0.18);
+      --white: #f5f7fa;
+      --muted: #b6c2d1;
+      --blue: #4ea3ff;
+      --violet: #9b5cff;
+      --cyan: #00d1b2;
+      --gold: #f8c14a;
+      --rose: #ff5f7e;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max-width: 1180px;
+      --header-height: 78px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--night);
+    }
+
+    body {
+      margin: 0;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(78, 163, 255, 0.18), transparent 28rem),
+        radial-gradient(circle at 78% 7%, rgba(155, 92, 255, 0.20), transparent 34rem),
+        radial-gradient(circle at 50% 100%, rgba(0, 209, 178, 0.10), transparent 28rem),
+        linear-gradient(180deg, #050b14 0%, var(--night) 48%, #050a12 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.75) 0 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(255,255,255,0.42) 0 1px, transparent 1.2px);
+      background-size: 84px 84px, 137px 137px;
+      background-position: 0 0, 17px 31px;
+      opacity: 0.21;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto -15% -22% -15%;
+      height: 38vh;
+      background: radial-gradient(ellipse at center, rgba(78, 163, 255, 0.18), transparent 65%);
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(10px);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--night);
+      background: var(--white);
+      z-index: 999;
+    }
+
+    .skip-link:focus { left: 12px; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 11, 20, 0.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-wrap {
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+    }
+
+    .brand-mark {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 62px;
+      flex: 0 0 72px;
+      overflow: visible;
+    }
+
+    .brand-mark img {
+      position: relative;
+      width: 78px;
+      height: 78px;
+      max-width: none;
+      object-fit: contain;
+      object-position: center;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.36));
+      transform: translateY(-2px);
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 1.04rem;
+      letter-spacing: 0.08em;
+      line-height: 1.05;
+    }
+
+    .brand-text span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2.5vw, 28px);
+      color: rgba(245,247,250,0.84);
+      font-size: 0.94rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 12px 0;
+      transition: color 180ms ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4px;
+      height: 2px;
+      border-radius: 99px;
+      transform: scaleX(0);
+      transform-origin: left;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      transition: transform 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible { color: var(--white); }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after { transform: scaleX(1); }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 14px;
+      color: var(--white);
+      background: rgba(255,255,255,0.05);
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 4px auto;
+      background: currentColor;
+      border-radius: 99px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - var(--header-height));
+      display: grid;
+      align-items: center;
+      padding: 76px 0 62px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 78% 30%, rgba(78, 163, 255, 0.18), transparent 23rem),
+        radial-gradient(circle at 64% 42%, rgba(155, 92, 255, 0.18), transparent 25rem),
+        linear-gradient(90deg, rgba(5, 11, 20, 0.94) 0%, rgba(5, 11, 20, 0.68) 50%, rgba(5, 11, 20, 0.28) 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: min(900px, 82vw);
+      height: 260px;
+      right: -110px;
+      top: 17%;
+      z-index: -1;
+      opacity: 0.86;
+      filter: blur(0.2px) drop-shadow(0 0 30px rgba(78, 163, 255, 0.38));
+      background:
+        linear-gradient(90deg,
+          transparent 0%,
+          rgba(53, 35, 154, 0.08) 6%,
+          rgba(69, 50, 196, 0.48) 12%,
+          rgba(56, 88, 221, 0.54) 18%,
+          rgba(36, 119, 212, 0.56) 24%,
+          rgba(31, 152, 199, 0.56) 30%,
+          rgba(34, 180, 165, 0.56) 36%,
+          rgba(47, 198, 111, 0.54) 42%,
+          rgba(123, 210, 76, 0.52) 48%,
+          rgba(183, 216, 62, 0.52) 54%,
+          rgba(225, 220, 61, 0.52) 60%,
+          rgba(240, 195, 49, 0.52) 66%,
+          rgba(245, 162, 39, 0.50) 72%,
+          rgba(244, 125, 39, 0.48) 78%,
+          rgba(236, 85, 53, 0.45) 84%,
+          rgba(217, 59, 95, 0.40) 90%,
+          rgba(184, 51, 130, 0.28) 94%,
+          transparent 96%);
+      clip-path: polygon(0 64%, 9% 52%, 22% 42%, 38% 34%, 55% 31%, 75% 37%, 100% 52%, 100% 68%, 74% 53%, 55% 47%, 39% 50%, 22% 57%, 8% 68%, 0 78%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 440px;
+      gap: clamp(36px, 6vw, 70px);
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(78, 163, 255, 0.24);
+      border-radius: 999px;
+      color: #cfe7ff;
+      background: rgba(78, 163, 255, 0.08);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 16px;
+      font-size: clamp(3.45rem, 9vw, 7.8rem);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+      max-width: 920px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg,
+        #35239a 0%,
+        #4532c4 6.67%,
+        #3858dd 13.33%,
+        #2477d4 20%,
+        #1f98c7 26.67%,
+        #22b4a5 33.33%,
+        #2fc66f 40%,
+        #7bd24c 46.67%,
+        #b7d83e 53.33%,
+        #e1dc3d 60%,
+        #f0c331 66.67%,
+        #f5a227 73.33%,
+        #f47d27 80%,
+        #ec5535 86.67%,
+        #d93b5f 93.33%,
+        #b83382 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-subtitle {
+      margin-bottom: 20px;
+      color: #96cfff;
+      font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+      font-style: italic;
+      letter-spacing: 0.005em;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+      color: rgba(245,247,250,0.84);
+      font-size: clamp(1rem, 1.5vw, 1.18rem);
+      line-height: 1.7;
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 14px 19px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+    }
+
+    .button.primary {
+      color: white;
+      background: linear-gradient(135deg, #0f7cff, #4ea3ff);
+      box-shadow: 0 14px 42px rgba(78, 163, 255, 0.28);
+    }
+
+    .button-icon {
+      position: relative;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      flex: 0 0 1em;
+      color: transparent;
+      line-height: 1;
+      overflow: visible;
+    }
+
+    .button-icon::before {
+      content: "✉";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      color: white;
+      font-size: 1.45em;
+      line-height: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .button.secondary {
+      color: #e7d9ff;
+      border-color: rgba(155, 92, 255, 0.55);
+      background: rgba(155, 92, 255, 0.08);
+    }
+
+    .hero-news {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: clamp(22px, 3.4vw, 30px);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,0.13);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+        radial-gradient(circle at 35% 20%, rgba(155, 92, 255, 0.24), transparent 12rem),
+        radial-gradient(circle at 70% 36%, rgba(78, 163, 255, 0.22), transparent 16rem),
+        rgba(5, 11, 20, 0.48);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-news::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: calc(var(--radius-xl) - 10px);
+      opacity: 0.58;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 12% 28%, #fff 0 1.2px, transparent 1.3px),
+        radial-gradient(circle at 60% 17%, #fff 0 1px, transparent 1.2px),
+        radial-gradient(circle at 86% 43%, #fff 0 1.1px, transparent 1.3px),
+        radial-gradient(circle at 44% 72%, rgba(255,255,255,0.9) 0 1.2px, transparent 1.4px),
+        radial-gradient(circle at 27% 62%, rgba(78,163,255,0.9) 0 1.4px, transparent 1.6px),
+        radial-gradient(circle at 74% 72%, rgba(248,193,74,0.9) 0 1.4px, transparent 1.6px);
+      background-size: 58px 58px, 79px 79px, 97px 97px, 69px 69px, 88px 88px, 113px 113px;
+    }
+
+    .hero-news::after {
+      content: "";
+      position: absolute;
+      left: -18%;
+      right: -18%;
+      top: 34%;
+      height: 110px;
+      opacity: 0.24;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(78,163,255,0.7), rgba(0,209,178,0.45), rgba(248,193,74,0.7), transparent);
+      clip-path: polygon(0 54%, 18% 38%, 42% 44%, 62% 32%, 100% 50%, 100% 66%, 62% 48%, 42% 61%, 18% 56%, 0 72%);
+    }
+
+    .news-header,
+    .news-feature,
+    .news-list,
+    .news-link {
+      position: relative;
+      z-index: 1;
+    }
+
+    .news-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: #cfe7ff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .news-eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 18px rgba(248, 193, 74, 0.7);
+    }
+
+    .hero-news h2 {
+      margin-bottom: 0;
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      letter-spacing: -0.055em;
+    }
+
+    .news-feature {
+      display: block;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
+      background: rgba(5,11,20,0.62);
+      backdrop-filter: blur(14px);
+    }
+
+    .news-feature-link {
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .news-feature-link:hover,
+    .news-feature-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(78,163,255,0.45);
+      background: rgba(8, 20, 36, 0.74);
+    }
+
+    .news-feature time,
+    .news-date {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .news-feature h3,
+    .news-item h3 {
+      margin-bottom: 6px;
+    }
+
+    .news-feature p,
+    .news-item p {
+      margin-bottom: 0;
+      color: rgba(245,247,250,0.74);
+      font-size: 0.9rem;
+      line-height: 1.52;
+    }
+
+    .news-list {
+      display: grid;
+      gap: 6px;
+    }
+
+    .news-item {
+      padding: 14px 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .news-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      color: #cfe7ff;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    .news-link:hover,
+    .news-link:focus-visible { color: var(--white); }
+
+    .section {
+      padding: 86px 0;
+      position: relative;
+    }
+
+    .section.compact { padding: 64px 0; }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: clamp(24px, 5vw, 70px);
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .section-header.title-only {
+      grid-template-columns: 1fr;
+    }
+
+    .section-header.title-only h2 {
+      white-space: nowrap;
+    }
+
+    #workshops .section-header.title-only h2 {
+      white-space: nowrap;
+      font-size: clamp(1.8rem, 4.8vw, 4.2rem);
+    }
+
+    .kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--cyan);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 14px;
+      font-size: clamp(2.1rem, 5vw, 4.2rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    h3 {
+      margin-bottom: 12px;
+      font-size: 1.22rem;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .survey-panel {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 0;
+    }
+
+    .deep-field {
+      min-height: 360px;
+      background:
+        linear-gradient(180deg, rgba(5,11,20,0.03), rgba(5,11,20,0.30)),
+        url("filters_design_galaxies.png") center / cover no-repeat,
+        #07111f;
+      position: relative;
+      border-right: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .deep-field::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 14%, rgba(5,11,20,0.48), transparent 11rem),
+        linear-gradient(90deg, rgba(5,11,20,0.22), transparent 46%);
+      pointer-events: none;
+    }
+
+    .filters-design-blob {
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      max-width: calc(100% - 44px);
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 999px;
+      background: rgba(5,11,20,0.72);
+      color: var(--white);
+      font-size: 0.86rem;
+      font-weight: 850;
+      letter-spacing: 0.02em;
+      box-shadow: 0 18px 38px rgba(0,0,0,0.30);
+      backdrop-filter: blur(14px);
+      transition: transform 170ms ease, border-color 170ms ease, background 170ms ease;
+    }
+
+    .filters-design-blob:hover,
+    .filters-design-blob:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(78,163,255,0.50);
+      background: rgba(8,18,32,0.88);
+    }
+
+    .survey-copy {
+      padding: clamp(28px, 5vw, 52px);
+      background:
+        radial-gradient(circle at 80% 18%, rgba(155,92,255,0.10), transparent 16rem),
+        rgba(10, 22, 38, 0.72);
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .feature-pill {
+      padding: 15px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      color: rgba(245,247,250,0.88);
+      font-size: 0.92rem;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .resource-card {
+      position: relative;
+      grid-column: span 4;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(78,163,255,0.14), transparent 12rem),
+        linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.024));
+      box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }
+
+    .resource-card.featured {
+      grid-column: span 8;
+      background:
+        radial-gradient(circle at 82% 16%, rgba(248,193,74,0.16), transparent 13rem),
+        radial-gradient(circle at 12% 18%, rgba(78,163,255,0.14), transparent 12rem),
+        linear-gradient(180deg, rgba(255,255,255,0.078), rgba(255,255,255,0.026));
+    }
+
+    .resource-card.featured.single {
+      grid-column: span 12;
+    }
+
+    a.resource-card {
+      color: inherit;
+      transition: transform 170ms ease, border-color 170ms ease, background 170ms ease;
+    }
+
+    a.resource-card:hover,
+    a.resource-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(78,163,255,0.42);
+    }
+
+    .resource-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .resource-meta::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 14px currentColor;
+    }
+
+    .resource-card h3 { margin-bottom: 10px; }
+
+    .resource-card p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .resource-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #cfe7ff;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    .resource-action:hover,
+    .resource-action:focus-visible { color: var(--white); }
+
+    .workshop-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .workshop-link {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.045);
+      color: rgba(245,247,250,0.86);
+      font-weight: 800;
+      transition: transform 170ms ease, border-color 170ms ease, background 170ms ease;
+    }
+
+    .workshop-link::after {
+      content: "→";
+      color: #cfe7ff;
+      flex: 0 0 auto;
+    }
+
+    .workshop-link:hover,
+    .workshop-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(78,163,255,0.42);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .science-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .science-card {
+      grid-column: span 3;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 50% 0%, var(--card-glow, rgba(78,163,255,0.20)), transparent 8rem),
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .science-card:nth-last-child(-n + 3) {
+      grid-column: span 4;
+    }
+
+    .science-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.28);
+      background:
+        radial-gradient(circle at 50% 0%, var(--card-glow, rgba(78,163,255,0.25)), transparent 9rem),
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+    }
+
+    .science-logo-frame {
+      position: relative;
+      width: min(100%, 230px);
+      aspect-ratio: 1;
+      margin: -4px auto 18px;
+      overflow: hidden;
+      filter: drop-shadow(0 16px 28px rgba(0,0,0,0.38));
+    }
+
+    .science-logo-frame img {
+      position: absolute;
+      top: var(--sprite-y, 0%);
+      left: var(--sprite-x, 0%);
+      width: 550%;
+      max-width: none;
+      height: auto;
+    }
+
+    .science-card h3 {
+      font-size: 1.18rem;
+    }
+
+    .science-card p {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    .accent-line {
+      width: 42px;
+      height: 3px;
+      border-radius: 99px;
+      margin: 0 0 14px;
+      background: var(--card-accent, var(--blue));
+    }
+
+    .filters-panel {
+      padding: clamp(28px, 5vw, 48px);
+      background:
+        radial-gradient(circle at 72% 0%, rgba(248,193,74,0.10), transparent 20rem),
+        radial-gradient(circle at 45% 34%, rgba(0,209,178,0.08), transparent 22rem),
+        radial-gradient(circle at 95% 72%, rgba(255,45,85,0.10), transparent 16rem),
+        linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
+      position: relative;
+      isolation: isolate;
+    }
+
+    .filters-layout {
+      display: grid;
+      grid-template-columns: minmax(290px, 0.42fr) minmax(0, 1fr);
+      gap: clamp(28px, 4vw, 58px);
+      align-items: start;
+    }
+
+    .filters-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .filter-photo-card {
+      margin: 24px 0 0;
+      width: 100%;
+      max-width: 420px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      background: rgba(5,11,20,0.46);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.22);
+    }
+
+    .filter-photo-card img {
+      width: 100%;
+      aspect-ratio: 1.45;
+      object-fit: cover;
+      border-radius: 14px;
+      filter: saturate(1.08) contrast(1.04);
+    }
+
+    .filter-photo-card figcaption {
+      margin-top: 12px;
+      color: rgba(245,247,250,0.66);
+      font-size: 0.9rem;
+      line-height: 1.42;
+    }
+
+    .hardware-reference-blob {
+      display: grid;
+      gap: 10px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(78,163,255,0.16), transparent 12rem),
+        rgba(255,255,255,0.045);
+    }
+
+    .hardware-reference-link {
+      width: fit-content;
+      color: #cfe7ff;
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 170ms ease, transform 170ms ease;
+    }
+
+    .hardware-reference-link:hover,
+    .hardware-reference-link:focus-visible {
+      color: var(--white);
+      transform: translateX(2px);
+      outline: none;
+    }
+
+    .filters-constellation {
+      display: grid;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mbq-groups {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(10px, 1.2vw, 16px);
+      align-items: stretch;
+    }
+
+    .mbq-group {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 42px auto auto;
+      gap: 10px;
+      min-width: 0;
+      padding: 14px 10px 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 8%, color-mix(in srgb, var(--mbq-color), transparent 76%), transparent 8rem),
+        rgba(5,11,20,0.36);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }
+
+    .mbq-group::before {
+      content: "";
+      position: absolute;
+      inset: 0 14px auto;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--mbq-color), transparent);
+      opacity: 0.78;
+    }
+
+    .mbq-card {
+      display: grid;
+      justify-items: center;
+      gap: 9px;
+    }
+
+    .mbq-label {
+      color: var(--mbq-color);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .mbq-disc {
+      width: clamp(74px, 6.4vw, 104px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.55);
+      background: #02060d;
+      box-shadow:
+        0 0 24px color-mix(in srgb, var(--mbq-color), transparent 58%),
+        inset 0 0 18px rgba(255,255,255,0.12);
+    }
+
+    .mbq-disc img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 50%;
+    }
+
+    .mbq-lines {
+      width: 100%;
+      height: 42px;
+      overflow: visible;
+      color: var(--mbq-color);
+      filter: drop-shadow(0 0 10px color-mix(in srgb, var(--mbq-color), transparent 46%));
+    }
+
+    .mbq-lines path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.1;
+      stroke-linecap: round;
+      opacity: 0.74;
+    }
+
+    .filter-bars {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(14px, 1fr));
+      gap: clamp(5px, 0.72vw, 9px);
+      align-items: end;
+    }
+
+    .filter-bar {
+      display: grid;
+      grid-template-rows: 78px auto;
+      gap: 8px;
+      justify-items: center;
+      color: rgba(245,247,250,0.76);
+      font-size: 0.66rem;
+    }
+
+    .filter-bar span:first-child {
+      width: 100%;
+      max-width: 28px;
+      height: 78px;
+      border-radius: 9px;
+      border: 1px solid rgba(255,255,255,0.32);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.26), transparent 24%),
+        var(--filter-color);
+      box-shadow:
+        0 0 18px color-mix(in srgb, var(--filter-color), transparent 42%),
+        0 0 42px color-mix(in srgb, var(--filter-color), transparent 72%);
+    }
+
+    .filter-unit {
+      margin-top: -4px;
+      text-align: center;
+      color: rgba(245,247,250,0.48);
+      font-size: 0.58rem;
+      font-weight: 750;
+      letter-spacing: 0.06em;
+    }
+
+    .transmission-card {
+      position: relative;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .transmission-card::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: 50%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #21156f, #1269ea, #17c0ca, #4ad866, #ffe01f, #ff761c, #e31319, #8a0d29);
+      opacity: 0.26;
+    }
+
+    .transmission-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: rgba(245,247,250,0.72);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .transmission-link {
+      color: #cfe7ff;
+      transition: color 170ms ease;
+    }
+
+    .transmission-link:hover,
+    .transmission-link:focus-visible {
+      color: var(--white);
+    }
+
+    .transmission-card img {
+      position: relative;
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.96);
+    }
+
+    .spectrum-scale {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      color: rgba(245,247,250,0.64);
+      font-size: 0.78rem;
+    }
+
+    .scale-left, .scale-right {
+      position: absolute;
+      top: 16px;
+    }
+    .scale-left { left: 0; }
+    .scale-right { right: 0; }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      counter-reset: timeline;
+    }
+
+    .timeline-card {
+      counter-increment: timeline;
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.045);
+    }
+
+    .timeline-card::before {
+      content: "0" counter(timeline);
+      display: inline-grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      color: var(--night);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+    }
+
+    .team-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .team-card {
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.045);
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .tag-cloud span,
+    .tag-cloud a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(245,247,250,0.84);
+      background: rgba(255,255,255,0.045);
+      font-size: 0.84rem;
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .team-subtitle {
+      margin-top: 34px;
+    }
+
+    .tag-cloud .survey-tag {
+      border-color: rgba(78,163,255,0.34);
+      color: #cfe7ff;
+      background: rgba(78,163,255,0.10);
+    }
+
+    .tag-cloud .facility-tag {
+      border-color: rgba(248,193,74,0.36);
+      color: #ffe3a3;
+      background: rgba(248,193,74,0.10);
+    }
+
+    .tag-cloud a:hover,
+    .tag-cloud a:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.30);
+      background: rgba(255,255,255,0.075);
+      outline: none;
+    }
+
+    .tag-break {
+      flex-basis: 100%;
+      height: 0;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 24px;
+      align-items: stretch;
+      padding: clamp(28px, 5vw, 52px);
+      background:
+        radial-gradient(circle at 82% 20%, rgba(78,163,255,0.16), transparent 18rem),
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+    }
+
+    .contact-copy {
+      align-self: center;
+    }
+
+    .contact-box {
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(5,11,20,0.45);
+    }
+
+    .leader-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .leader-card {
+      display: flex;
+      min-height: 112px;
+      flex-direction: column;
+      justify-content: center;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.045);
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .leader-card:hover,
+    .leader-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(78,163,255,0.38);
+      background: rgba(78,163,255,0.09);
+      outline: none;
+    }
+
+    .leader-card strong {
+      display: block;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .leader-card span {
+      color: rgba(245,247,250,0.62);
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      padding: 42px 0;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      background: rgba(5,11,20,0.68);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+      color: rgba(245,247,250,0.58);
+    }
+
+    .logo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.035);
+      font-size: 0.86rem;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--violet));
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: end;
+      gap: 18px;
+      color: rgba(245,247,250,0.62);
+      font-size: 0.88rem;
+    }
+
+    .footer small {
+      display: block;
+      margin-top: 18px;
+      color: rgba(245,247,250,0.48);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid,
+      .section-header,
+      .survey-panel,
+      .filters-layout,
+      .contact-panel,
+      .team-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-button { display: inline-block; }
+      .nav-links {
+        position: fixed;
+        top: var(--header-height);
+        left: 14px;
+        right: 14px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 18px;
+        background: rgba(5,11,20,0.94);
+        box-shadow: var(--shadow);
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 14px; }
+      .hero-news { min-height: 390px; }
+      .section-header.title-only h2 { white-space: normal; }
+      .resource-card,
+      .resource-card.featured { grid-column: span 12; }
+      .workshop-links { grid-template-columns: 1fr; }
+      .mbq-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .science-card,
+      .science-card:nth-last-child(-n + 3) { grid-column: span 6; }
+      .feature-list, .timeline { grid-template-columns: 1fr; }
+      .deep-field { border-right: 0; border-bottom: 1px solid var(--line); }
+    }
+
+    @media (max-width: 780px) {
+      :root { --header-height: 72px; }
+      .container { width: min(calc(100% - 28px), var(--max-width)); }
+      h1 { font-size: clamp(3rem, 17vw, 5.2rem); }
+      .hero { padding-top: 54px; }
+      .hero-copy { text-align: left; }
+      .science-card,
+      .science-card:nth-last-child(-n + 3) { grid-column: span 12; }
+      .mbq-groups { grid-template-columns: 1fr; }
+      .filter-bars { grid-template-columns: repeat(4, 1fr); }
+      .leader-list { grid-template-columns: 1fr; }
+      .transmission-head {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-links { justify-content: start; }
+      .brand-mark {
+        width: 64px;
+        height: 56px;
+        flex-basis: 64px;
+      }
+      .brand-mark img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .brand-text span { display: none; }
+      .cta-row .button { width: 100%; }
+      .filter-bars { grid-template-columns: repeat(4, 1fr); }
+      .hero-news {
+        min-height: 0;
+        padding: 22px;
+      }
+      .news-feature { padding: 18px; }
+      .section { padding: 66px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" aria-label="Main site header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="HSC-Niji Survey home">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="Logo_symbol.png" alt="" />
+        </span>
+        <span class="brand-text">
+          <strong>HSC-Niji</strong>
+          <span>Survey</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#survey">Survey</a>
+        <a href="#news">News</a>
+        <a href="#filters">Filters design</a>
+        <a href="#science">Science</a>
+        <a href="#workshops">Workshops</a>
+        <a href="#literature">Literature</a>
+        <a href="#data">Data</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks" id="menuButton">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy-wrap reveal">
+          <span class="eyebrow">Subaru / Hyper Suprime-Cam</span>
+          <h1>HSC-<span class="gradient-text">Niji</span> Survey</h1>
+          <p class="hero-subtitle">Mapping the Universe through medium-band colors</p>
+          <p class="hero-copy">
+            A new medium-band imaging survey with Hyper Suprime-Cam on the Subaru Telescope,
+            designed to investigate key questions in cosmology, galaxy evolution and AGN, Galactic archaeology, stellar and planetary science, and calibrate photometric redshift estimates in Stage IV surveys.
+          </p>
+          <div class="cta-row">
+            <a class="button primary" href="#survey" aria-label="Explore the survey">✦ Explore the Survey</a>
+            <a class="button secondary" href="#science" aria-label="View science cases">◎ Science Cases</a>
+          </div>
+        </div>
+
+        <aside class="hero-news reveal" id="news" aria-labelledby="latest-news-title">
+          <div class="news-header">
+            <span class="news-eyebrow">Latest News</span>
+          </div>
+
+          <article>
+            <a class="news-feature news-feature-link" href="https://sites.google.com/view/4th-hsc-mb-workshop/home" target="_blank" rel="noopener noreferrer" aria-label="Open the 4th HSC medium-band workshop website">
+              <time datetime="2026-07">July 2026</time>
+              <h3>4th MB workshop</h3>
+              <p>
+                Learn about the latest HSC medium-band workshop.
+              </p>
+            </a>
+          </article>
+
+          <div class="news-list" aria-label="Recent updates">
+            <article class="news-item">
+              <span class="news-date">Scientific Papers</span>
+              <!-- <h3>Papers</h3> -->
+              <p> The latest paper featuring the 16 HSC-Niji medium band filters has been accepted for publication by A&A. <a class="news-link" href="#literature" aria-label="Read more in HSC-Niji in the literature"> Read more in → HSC-Niji in the literature</a></p>
+            </article>
+            <article class="news-item">
+              <span class="news-date">Coming soon</span>
+              <!--  <h3>Survey announcements</h3>  -->
+              <p>Survey updates will be announced here.</p>
+            </article>
+          </div>
+
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="survey">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <span class="kicker">Survey concept</span>
+            <h2>What is HSC-Niji?</h2>
+          </div>
+          <p>
+          Niji means “rainbow” in Japanese: a survey identity built around the idea of decomposing the optical-to-near-infrared sky into 16 colors, to unveil the physical processes that shape galaxies, black holes, and the large-scale structure of the Universe.
+          </p>
+        </div>
+
+        <div class="panel survey-panel reveal">
+          <div class="deep-field">
+            <a class="filters-design-blob" href="#filters" aria-label="Go to the Filters design section">Filters design →</a>
+          </div>
+          <div class="survey-copy">
+            <h3>A wide-field medium-band survey for the next decade of optical astronomy</h3>
+            <p>
+              HSC-Niji combines the wide-field capability of Hyper Suprime-Cam with medium-band
+              quasi-spectral information, bridging broad-band imaging and spectroscopy. The survey is
+              designed to improve photometric redshifts, detect emission-line populations, select
+              rare objects, and connect galaxies and active black holes to their environments.
+            </p>
+            <div class="feature-list" aria-label="Survey highlights">
+              <div class="feature-pill"><strong>390–980 nm </strong><span> window</span></div>
+              <div class="feature-pill">16 medium-band filters</div>
+              <div class="feature-pill">HSC wide field of view</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="filters">
+      <div class="container">
+        <div class="panel filters-panel reveal">
+          <div class="filters-layout">
+            <div class="filters-copy">
+              <span class="kicker">Filters design</span>
+              <h2>Medium-band filters</h2>
+              <p>
+                Sixteen medium-band filters organised in four telescope quadrants (MBQ1 to MBQ4) provide low-resolution spectra, enabling sharper physical interpretation than broad-band colors alone.
+              </p>
+              <figure class="filter-photo-card">
+                <img src="hsc_niji_filter_photo_mbq1.png" alt="Real HSC-Niji medium-band filters mounted in a filter holder" />
+                <figcaption class="hardware-reference-blob">
+                  <span>Hardware reference: MBQ1 mounted on the camera at Subaru telescope.</span>
+                  <a class="hardware-reference-link" href="https://subarutelescope.org/Instruments/HSC/fig/HSC_mbq1.png" target="_blank" rel="noopener noreferrer">→ Learn more about MBQ1</a>
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="filters-constellation" aria-label="HSC-Niji filters grouped into four medium-band quadrants">
+              <div class="mbq-groups">
+                <article class="mbq-group" style="--mbq-color:#2368ff;">
+                  <div class="mbq-card">
+                    <span class="mbq-label">MBQ1</span>
+                    <div class="mbq-disc"><img src="mbq1_quadrant.png" alt="Stylized MBQ1 blue filter quadrant" /></div>
+                  </div>
+                  <svg class="mbq-lines" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M60 2 C60 16 18 22 18 42"></path>
+                    <path d="M60 2 C58 16 46 24 46 42"></path>
+                    <path d="M60 2 C62 16 74 24 74 42"></path>
+                    <path d="M60 2 C60 16 102 22 102 42"></path>
+                  </svg>
+                  <div class="filter-bars" aria-label="MBQ1 filter wavelengths">
+                    <div class="filter-bar" style="--filter-color:#1c1a86"><span></span><span>411</span></div>
+                    <div class="filter-bar" style="--filter-color:#2437c8"><span></span><span>441</span></div>
+                    <div class="filter-bar" style="--filter-color:#166ff0"><span></span><span>468</span></div>
+                    <div class="filter-bar" style="--filter-color:#28aaf2"><span></span><span>497</span></div>
+                  </div>
+                  <div class="filter-unit" aria-hidden="true">Central wavelength [nm]</div>
+                </article>
+
+                <article class="mbq-group" style="--mbq-color:#20cba4;">
+                  <div class="mbq-card">
+                    <span class="mbq-label">MBQ2</span>
+                    <div class="mbq-disc"><img src="mbq2_quadrant.png" alt="Stylized MBQ2 cyan and green filter quadrant" /></div>
+                  </div>
+                  <svg class="mbq-lines" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M60 2 C60 16 18 22 18 42"></path>
+                    <path d="M60 2 C58 16 46 24 46 42"></path>
+                    <path d="M60 2 C62 16 74 24 74 42"></path>
+                    <path d="M60 2 C60 16 102 22 102 42"></path>
+                  </svg>
+                  <div class="filter-bars" aria-label="MBQ2 filter wavelengths">
+                    <div class="filter-bar" style="--filter-color:#17b9e2"><span></span><span>527</span></div>
+                    <div class="filter-bar" style="--filter-color:#1ec4bd"><span></span><span>558</span></div>
+                    <div class="filter-bar" style="--filter-color:#28c96d"><span></span><span>589</span></div>
+                    <div class="filter-bar" style="--filter-color:#86dc37"><span></span><span>620</span></div>
+                  </div>
+                  <div class="filter-unit" aria-hidden="true">Central wavelength [nm]</div>
+                </article>
+
+                <article class="mbq-group" style="--mbq-color:#ffb21e;">
+                  <div class="mbq-card">
+                    <span class="mbq-label">MBQ3</span>
+                    <div class="mbq-disc"><img src="mbq3_quadrant.png" alt="Stylized MBQ3 yellow and orange filter quadrant" /></div>
+                  </div>
+                  <svg class="mbq-lines" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M60 2 C60 16 18 22 18 42"></path>
+                    <path d="M60 2 C58 16 46 24 46 42"></path>
+                    <path d="M60 2 C62 16 74 24 74 42"></path>
+                    <path d="M60 2 C60 16 102 22 102 42"></path>
+                  </svg>
+                  <div class="filter-bars" aria-label="MBQ3 filter wavelengths">
+                    <div class="filter-bar" style="--filter-color:#cce820"><span></span><span>652</span></div>
+                    <div class="filter-bar" style="--filter-color:#ffd31e"><span></span><span>688</span></div>
+                    <div class="filter-bar" style="--filter-color:#ff9d1a"><span></span><span>725</span></div>
+                    <div class="filter-bar" style="--filter-color:#ff6a1f"><span></span><span>775</span></div>
+                  </div>
+                  <div class="filter-unit" aria-hidden="true">Central wavelength [nm]</div>
+                </article>
+
+                <article class="mbq-group" style="--mbq-color:#ef2435;">
+                  <div class="mbq-card">
+                    <span class="mbq-label">MBQ4</span>
+                    <div class="mbq-disc"><img src="mbq4_quadrant.png" alt="Stylized MBQ4 red filter quadrant" /></div>
+                  </div>
+                  <svg class="mbq-lines" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M60 2 C60 16 18 22 18 42"></path>
+                    <path d="M60 2 C58 16 46 24 46 42"></path>
+                    <path d="M60 2 C62 16 74 24 74 42"></path>
+                    <path d="M60 2 C60 16 102 22 102 42"></path>
+                  </svg>
+                  <div class="filter-bars" aria-label="MBQ4 filter wavelengths">
+                    <div class="filter-bar" style="--filter-color:#ff482f"><span></span><span>823</span></div>
+                    <div class="filter-bar" style="--filter-color:#e72420"><span></span><span>873</span></div>
+                    <div class="filter-bar" style="--filter-color:#c8133e"><span></span><span>906</span></div>
+                    <div class="filter-bar" style="--filter-color:#921139"><span></span><span>945</span></div>
+                  </div>
+                  <div class="filter-unit" aria-hidden="true">Central wavelength [nm]</div>
+                </article>
+              </div>
+
+              <div class="transmission-card">
+                <div class="transmission-head">
+                  <span>Transmission curve across MBQ1-MBQ4</span>
+                </div>
+                <img src="hsc_niji_transmission_curve.png" alt="Transmission curve of the HSC-Niji medium-band filters grouped into MBQ1, MBQ2, MBQ3, and MBQ4" />
+                <div class="spectrum-scale" aria-hidden="true">
+                  <span>~390 nm</span>
+                  <span>~980 nm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="science">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <span class="kicker">Science goals</span>
+            <h2>Science across cosmic scales</h2>
+          </div>
+          <p>
+            HSC-Niji is designed as an interdisciplinary platform spanning cosmology, photo-z,
+            AGN, galaxy evolution, clusters and large-scale structure, Galactic archaeology,
+            and stellar and planetary science.
+          </p>
+        </div>
+
+        <div class="science-grid">
+          <article class="science-card reveal" style="--card-accent:#7bd24c; --card-glow:rgba(123,210,76,.20);">
+            <div>
+              <div class="science-logo-frame" aria-hidden="true" style="--sprite-x:-3%; --sprite-y:-3%;">
+                <img src="science_cases_white_text.png" alt="" />
+              </div>
+              <h3>Cosmology</h3>
+              <div class="accent-line"></div>
+              <p>Use precision colors, weak-lensing information, and cross-correlations to constrain the evolution of the Universe.</p>
+            </div>
+          </article>
+
+          <article class="science-card reveal" style="--card-accent:#2477d4; --card-glow:rgba(36,119,212,.22);">
+            <div>
+              <div class="science-logo-frame" aria-hidden="true" style="--sprite-x:-111%; --sprite-y:-3%;">
+                <img src="science_cases_white_text.png" alt="" />
+              </div>
+              <h3>Photometric Redshifts</h3>
+              <div class="accent-line"></div>
+              <p>Resolve medium-band spectral features to improve redshift precision and reduce catastrophic outliers.</p>
+            </div>
+          </article>
+
+          <article class="science-card reveal" style="--card-accent:#d93b95; --card-glow:rgba(217,59,149,.22);">
+            <div>
+              <div class="science-logo-frame" aria-hidden="true" style="--sprite-x:-216%; --sprite-y:-3%;">
+                <img src="science_cases_white_text.png" alt="" />
+              </div>
+              <h3>AGN</h3>
+              <div class="accent-line"></div>
+              <p>Select active galactic nuclei and investigate black-hole growth, dual AGN, mergers, and their environments.</p>
+            </div>
+          </article>
+
+          <article class="science-card reveal" style="--card-accent:#22b4a5; --card-glow:rgba(34,180,165,.22);">
+            <div>
+              <div class="science-logo-frame" aria-hidden="true" style="--sprite-x:-321%; --sprite-y:-3%;">
+                <img src="science_cases_white_text.png" alt="" />
+              </div>
+              <h3>Galaxy Evolution</h3>
+              <div class="accent-line"></div>
+              <p>Trace galaxy growth, star formation, quenching, morphology, and environment across cosmic time.</p>
+            </div>
+          </article>
+
+          <article class="science-card reveal" style="--card-accent:#b83382; --card-glow:rgba(184,51,130,.22);">
+            <div>
+              <div class="science-logo-frame" aria-hidden="true" style="--sprite-x:-432%; --sprite-y:-3%;">
+                <img src="science_cases_white_text.png" alt="" />
+              </div>
+              <h3>Galaxy Clusters &amp; LSS</h3>
+              <div class="accent-line"></div>
+              <p>Map galaxy clusters, large-scale structure, and the environmental processes connecting galaxies across the cosmic web.</p>
+            </div>
+          </article>
+
+          <article class="science-card reveal" style="--card-accent:#f5a227; --card-glow:rgba(245,162,39,.20);">
+            <div>
+              <div class="science-logo-frame" aria-hidden="true" style="--sprite-x:-169%; --sprite-y:-234px;">
+                <img src="science_cases_full_white_text.png" alt="" />
+              </div>
+              <h3>Galactic Archaeology</h3>
+              <div class="accent-line"></div>
+              <p>Reconstruct the Milky Way’s assembly history through its stellar populations, chemistry, and Galactic structure.</p>
+            </div>
+          </article>
+
+          <article class="science-card reveal" style="--card-accent:#ec5535; --card-glow:rgba(236,85,53,.20);">
+            <div>
+              <div class="science-logo-frame" aria-hidden="true" style="--sprite-x:-59%; --sprite-y:-234px;">
+                <img src="science_cases_full_white_text.png" alt="" />
+              </div>
+              <h3>Stellar &amp; Planetary Science</h3>
+              <div class="accent-line"></div>
+              <p>Study stellar populations and planetary-system science through consistent, information-rich multiband imaging.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="workshops">
+      <div class="container">
+        <div class="section-header title-only reveal">
+          <div>
+            <span class="kicker">Community</span>
+            <h2>Workshops</h2>
+            
+          </div>
+          <!-- <p>
+          Workshop information and material connected to the HSC medium-band
+            survey program and the broader HSC-Niji science community.
+          </p>  -->
+        </div>
+
+        <div class="resource-grid">
+          <article class="resource-card featured single reveal">
+            <div>
+                <!-- <span class="resource-meta">Workshop</span> -->
+                <!-- <h3>HSC Medium-Band Workshops</h3> -->
+              <p>
+                Workshop information and material connected to the HSC medium-band
+                survey program and the broader HSC-Niji science community.
+              </p>
+              <div class="workshop-links" aria-label="Workshop links">
+                <a class="workshop-link" href="https://sites.google.com/view/4th-hsc-mb-workshop/home" target="_blank" rel="noopener noreferrer">4th HSC Medium-Band Workshop</a>
+                <a class="workshop-link" href="https://sites.google.com/view/hsc-mb-survey3/" target="_blank" rel="noopener noreferrer">3rd HSC Medium-Band Survey Workshop</a>
+                <a class="workshop-link" href="https://sites.google.com/view/hsc-mb-workshop/home" target="_blank" rel="noopener noreferrer">2nd HSC-MB Workshop</a>
+                <a class="workshop-link" href="https://sites.google.com/view/hscmbworkshop/home" target="_blank" rel="noopener noreferrer">1st HSC MB Workshop</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="literature">
+      <div class="container">
+        <div class="section-header title-only reveal">
+          <div>
+            <span class="kicker">Publications</span>
+            <h2>HSC-Niji in the literature</h2>
+          </div>
+        </div>
+
+        <div class="resource-grid">
+          <a class="resource-card featured single reveal" href="https://ui.adsabs.harvard.edu/abs/2026arXiv260110795E/abstract" target="_blank" rel="noopener noreferrer" aria-label="Open the ADS record for the Euclid medium-band filters paper">
+            <div>
+              <span class="resource-meta">Paper</span>
+              <h3>Euclid SED reconstruction and medium-band filters</h3>
+              <p>
+                Euclid Collaboration, F. Tarsitano, et al. 2026,
+                “Euclid: Galaxy SED reconstruction in the PHZ processing function:
+                impact on the PSF and the role of medium-band filters”, arXiv:2601.10795.
+              </p>
+              <p>
+                This work describes the galaxy SED reconstruction implemented in the Euclid photometric redshift pipeline. Furthermore, it conducts the first simulation-based study using the 16 Subaru medium-band filters, showing that its quasi-spectroscopic smapling of the Euclid VIS filter can improve the level of accuracy achievable for the galaxy SED reconstruction, whcih is key to fullfil PSF modelling and weak-lensing mission requirements. 
+              </p>
+            </div>
+            <span class="resource-action">Open ADS record →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="data">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <span class="kicker">Data products</span>
+            <h2>Designed for science</h2>
+          </div>
+          <p>
+            Stay tuned for updates on observing status, future data-release plans,
+            catalog descriptions, access policy, and collaboration information.
+          </p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-card reveal">
+            <h3>Imaging</h3>
+            <p>Medium-band observations, image quality information, depth maps, and survey footprints.</p>
+          </article>
+          <article class="timeline-card reveal">
+            <h3>Catalogs</h3>
+            <p>Photometry, source measurements, emission-line candidates, and selected science-ready samples.</p>
+          </article>
+          <article class="timeline-card reveal">
+            <h3>Science tools</h3>
+            <p>Photometric-redshift products, selection functions, simulations, validation samples, and documentation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="team">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <span class="kicker">Collaboration</span>
+            <h2>People, expertise, community</h2>
+          </div>
+          <p>
+            HSC-Niji represents a collaborative framework across international surveys and observational facilities.
+          </p>
+        </div>
+
+        <div class="team-strip">
+          <article class="team-card reveal">
+            <h3>Working groups</h3>
+            <!--<p>Cosmology, Galaxy Evolution and AGN, Protoclusters, survey strategy, target selection, Galaxy SED and photo-z, and multi-wavelength synergies.</p>-->
+            <div class="tag-cloud">
+              <span>Cosmology</span><span>Galaxy Evolution</span><span>AGN</span><span>Galaxy SED and Photo-z</span><span>Protoclusters</span><span>Survey Strategy</span><span>Multi-wavelength Synergies</span>
+            </div>
+          </article>
+          <article class="team-card reveal">
+            <h3>Synergy with surveys and observational facilities</h3>
+            <div class="tag-cloud">
+              <a class="survey-tag" href="https://www.desi.lbl.gov/" target="_blank" rel="noopener noreferrer">DESI-II</a>
+              <a class="survey-tag" href="https://www.euclid-ec.org/" target="_blank" rel="noopener noreferrer">Euclid</a>
+              <a class="survey-tag" href="https://pfs.ipmu.jp/" target="_blank" rel="noopener noreferrer">PFS</a>
+              <a class="survey-tag" href="https://science.nasa.gov/mission/roman-space-telescope/" target="_blank" rel="noopener noreferrer">Nancy Grace Roman Space Telescope</a>
+              <span class="tag-break" aria-hidden="true"></span>
+              <a class="facility-tag" href="https://www.cfht.hawaii.edu/" target="_blank" rel="noopener noreferrer">CHFT</a>
+              <a class="facility-tag" href="https://www.keckobservatory.org/" target="_blank" rel="noopener noreferrer">Keck</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="panel contact-panel reveal">
+          <div>
+            <span class="kicker">Contact</span>
+            <h2>Stay updated with HSC-Niji</h2>
+            <aside class="contact-box">
+              <h3>HSC-Niji coordinators</h3>
+              <div class="leader-list" aria-label="HSC-Niji coordinator webpages">
+                <a class="leader-card" href="https://www.federicatarsitano.com/" target="_blank" rel="noopener noreferrer">
+                  <strong>Federica Tarsitano</strong>
+                  <span>Personal webpage</span>
+                </a>
+                <a class="leader-card" href="https://sites.google.com/view/hironaomiyatake/home" target="_blank" rel="noopener noreferrer">
+                  <strong>Hironao Miyatake</strong>
+                  <span>Personal webpage</span>
+                </a>
+                <a class="leader-card" href="https://sites.google.com/view/ajnishizawa" target="_blank" rel="noopener noreferrer">
+                  <strong>Atsushi Nishizawa</strong>
+                  <span>Personal webpage</span>
+                </a>
+              </div>
+            </aside>
+          </div>
+          <div class="contact-copy">
+            <p>
+              For questions about science projects, workshops, and collaborations related to the HSC-Niji survey, please contact the HSC-Niji coordinators.
+            </p>
+            <div class="cta-row">
+              <a class="button primary" href="mailto:hsc-niji@googlegroups.com"><span class="button-icon" aria-hidden="true">✉</span> Contact the HSC-Niji coordinators</a>
+              <a class="button secondary" href="#home">↑ Back to top</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="#home" aria-label="HSC-Niji Survey home footer">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="Logo_symbol.png" alt="" />
+          </span>
+          <span class="brand-text"><strong>HSC-Niji</strong><span>Survey</span></span>
+        </a>
+        <small>© <span id="year"></span> HSC-Niji Survey Collaboration. Website credits: F. Tarsitano.</small>
+      </div>
+      <div class="footer-links">
+        <a href="#survey">Survey</a>
+        <a href="#filters">Filters design</a>
+        <a href="#science">Science</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const navLinks = document.getElementById('navLinks');
+
+    menuButton?.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('is-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+        menuButton?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
