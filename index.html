@@ -1173,11 +1173,24 @@
     }
 
     .spectrum-scale {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      color: rgba(245,247,250,0.64);
-      font-size: 0.78rem;
+      margin: 12px 4px 0;
+      color: rgba(245,247,250,0.66);
+      font-size: 0.84rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .spectrum-scale a {
+      color: #cfe7ff;
+      font-weight: 750;
+      text-decoration: none;
+      transition: color 170ms ease;
+    }
+
+    .spectrum-scale a:hover,
+    .spectrum-scale a:focus-visible {
+      color: var(--white);
+      outline: none;
     }
 
     .scale-left, .scale-right {
@@ -1393,6 +1406,12 @@
       display: block;
       margin-top: 18px;
       color: rgba(245,247,250,0.48);
+    }
+
+    .footer-credit {
+      color: rgba(245,247,250,0.66) !important;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     .footer-keywords {
@@ -1724,9 +1743,10 @@
                   <span>Transmission curve across MBQ1-MBQ4</span>
                 </div>
                 <img src="hsc_niji_transmission_curve.png" alt="Transmission curve of the HSC-Niji medium-band filters grouped into MBQ1, MBQ2, MBQ3, and MBQ4" />
-                <div class="spectrum-scale" aria-hidden="true">
-                  <span>~390 nm</span>
-                  <span>~980 nm</span>
+                <div class="spectrum-scale">
+                  Adapted from Tarsitano et al., 2026,
+                  <a href="https://ui.adsabs.harvard.edu/link_gateway/2026arXiv260110795E/arxiv:2601.10795" target="_blank" rel="noopener noreferrer">arXiv:2601.10795</a>,
+                  accepted for publication in A&amp;A.
                 </div>
               </div>
             </div>
@@ -2006,7 +2026,7 @@
           </span>
           <span class="brand-text"><strong>HSC-Niji</strong><span>Survey</span></span>
         </a>
-        <small>© <span id="year"></span> HSC-Niji Survey Collaboration. Website credits: F. Tarsitano.</small>
+        <small class="footer-credit">© <span id="year"></span> HSC-Niji Survey Collaboration. Website credits: Federica Tarsitano.</small>
         <small class="footer-keywords"><span>Search terms:</span> HSC Niji, HSC-Niji, hsc niji, medium-band, medium band filters, Subaru Telescope, Hyper Suprime-Cam, Euclid, Roman, PFS, Nancy Grace Roman Space Telescope.</small>
       </div>
       <div class="footer-links">
